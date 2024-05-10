@@ -1,10 +1,11 @@
-export const Buscador = () => {
+export const Buscador = ({onChange}) => {
 
     return (
         <input
         type="text"
-        placeholder="search"
+        placeholder="Busca tu farmacia de preferencia"
         className="form-control"
+        onChange={onChange}
         />
     )
 }

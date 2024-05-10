@@ -6,8 +6,9 @@ import Table from 'react-bootstrap/Table';
 
 export const MiApi = () => {
 
-    const URL = 'https://midas.minsal.cl/farmacia_v2/WS/getLocales.php'
-    const [farmacias,setFarmancias] = useState ([])
+    const URL = 'https://midas.minsal.cl/farmacia_v2/WS/getLocales.php';
+    const [farmacias,setFarmancias] = useState ([]);
+    const [search,setSearch] = useState (""); 
 
     const fetchData = async () => {
         const {data} = await axios.get(URL);
@@ -43,9 +44,19 @@ export const MiApi = () => {
         fetchData();
     },[])
 
+    const handleSearch = (event) => {
+        setSearch(event.target.value)
+        console.log (search ,"Funcion handleSearch")
+        let DrougStrFilter = [];
+        DrougStrFilter = farmacias.filter ((farmacia) =>
+            farmacia.nombre.toLowerCase().includes(search.toLowerCase())
+        )
+        console.log (DrougStrFilter,"Resultado filtrado")
+    }
+
     return(
         <>
-        <Buscador />
+        <Buscador onChange={handleSearch}/>
         <Table responsive="lg" striped bordered className='ForCellPhones'>
         <thead>
           <tr>
@@ -66,7 +77,7 @@ export const MiApi = () => {
                     <td>{farmacia.apertura} - {farmacia.cierre}</td>
                     <td>{farmacia.telefono}</td>
                 </tr>
-            ))) :
+                    ))) :
               <tr>
                 <td colSpan={7}>
                     <h1>Cargando...</h1>
