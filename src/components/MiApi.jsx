@@ -9,6 +9,7 @@ export const MiApi = () => {
     const URL = 'https://midas.minsal.cl/farmacia_v2/WS/getLocales.php';
     const [farmacias,setFarmancias] = useState ([]);
     const [search,setSearch] = useState (""); 
+    const [filtrado, setFiltrado] = useState ([]);
 
     const fetchData = async () => {
         const {data} = await axios.get(URL);
@@ -51,7 +52,7 @@ export const MiApi = () => {
         DrougStrFilter = farmacias.filter ((farmacia) =>
             farmacia.nombre.toLowerCase().includes(search.toLowerCase())
         )
-        console.log (DrougStrFilter,"Resultado filtrado")
+        setFiltrado(DrougStrFilter)
     }
 
     return(
@@ -69,7 +70,15 @@ export const MiApi = () => {
         </thead>
         <tbody>
           {
-            farmacias?.length ? ( farmacias.map( (farmacia, index) => (
+            filtrado?.length ? (filtrado.map((filterdata,index) => (
+                <tr key={filterdata.id}>
+                <td>{filterdata.nombre}</td>
+                <td>{filterdata.comuna}</td>
+                <td>{filterdata.direccion}</td>
+                <td>{filterdata.apertura} - {filterdata.cierre}</td>
+                <td>{filterdata.telefono}</td>
+            </tr>
+            ))): (farmacias?.length ? ( farmacias.map( (farmacia, index) => (
                 <tr key={farmacia.id}>
                     <td>{farmacia.nombre}</td>
                     <td>{farmacia.comuna}</td>
@@ -83,7 +92,7 @@ export const MiApi = () => {
                     <h1>Cargando...</h1>
                 </td>
               </tr>
-          }
+          )}
         </tbody>
       </Table>
         </>
