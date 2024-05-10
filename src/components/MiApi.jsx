@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Buscador } from './Buscador';
 import Table from 'react-bootstrap/Table';
 
 export const MiApi = () => {
@@ -44,7 +45,8 @@ export const MiApi = () => {
 
     return(
         <>
-                  <Table responsive="lg" striped bordered className='ForCellPhones'>
+        <Buscador />
+        <Table responsive="lg" striped bordered className='ForCellPhones'>
         <thead>
           <tr>
             <th>Local</th>
@@ -57,13 +59,13 @@ export const MiApi = () => {
         <tbody>
           {
             farmacias?.length ? ( farmacias.map( (farmacia, index) => (
-              <tr key={farmacia.id}>
-                <td>{farmacia.nombre}</td>
-                <td>{farmacia.comuna}</td>
-                <td>{farmacia.direccion}</td>
-                <td>{farmacia.apertura} - {farmacia.cierre}</td>
-                <td>{farmacia.telefono}</td>
-            </tr>
+                <tr key={farmacia.id}>
+                    <td>{farmacia.nombre}</td>
+                    <td>{farmacia.comuna}</td>
+                    <td>{farmacia.direccion}</td>
+                    <td>{farmacia.apertura} - {farmacia.cierre}</td>
+                    <td>{farmacia.telefono}</td>
+                </tr>
             ))) :
               <tr>
                 <td colSpan={7}>
