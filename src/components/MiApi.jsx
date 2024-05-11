@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Buscador } from './Buscador';
+import { Ordernar } from './Ordenar';
 import Table from 'react-bootstrap/Table';
 
 export const MiApi = () => {
@@ -97,12 +98,13 @@ export const MiApi = () => {
     return(
         <>
         <Buscador 
-        onChange={handleSearch}
-        onClick={searchValue}
-        item={item}
-        valor={valor}
-        mensaje={msj}
+            onChange={handleSearch}
+            onClick={searchValue}
+            item={item}
+            valor={valor}
+            mensaje={msj}
         />
+        <Ordernar />
         <Table responsive="lg" striped bordered className='ForCellPhones'>
         <thead>
           <tr>
