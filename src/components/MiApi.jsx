@@ -10,6 +10,9 @@ export const MiApi = () => {
     const [farmacias,setFarmancias] = useState ([]);
     const [search,setSearch] = useState (""); 
     const [filtrado, setFiltrado] = useState ([]);
+    const [valor,setValor] = useState ("");
+    const [item,setItem] = useState (false);
+    const [msj,setMsj] = useState ("");
 
     const fetchData = async () => {
         const {data} = await axios.get(URL);
@@ -45,19 +48,61 @@ export const MiApi = () => {
         fetchData();
     },[])
 
-    const handleSearch = (event) => {
+    const handleSearch = (event,searchfield) => {
         setSearch(event.target.value)
         console.log (search ,"Funcion handleSearch")
-        let DrougStrFilter = [];
-        DrougStrFilter = farmacias.filter ((farmacia) =>
-            farmacia.nombre.toLowerCase().includes(search.toLowerCase())
-        )
-        setFiltrado(DrougStrFilter)
+        if (search !== "") {
+            let DrougStrFilter = busquedaCampo();
+            setFiltrado(DrougStrFilter)
+        } else {
+            setFiltrado([])
+        }
+        
+    }
+
+    const busquedaCampo = () => {
+        let array_proceso;
+        if (valor == "nombre" ) {
+            array_proceso = farmacias.filter ((farmacia) =>
+                farmacia.nombre.toLowerCase().includes(search.toLowerCase())
+            )
+        } else if ( valor == "comuna") {
+            array_proceso = farmacias.filter ((farmacia) =>
+                farmacia.comuna.toLowerCase().includes(search.toLowerCase())
+            )
+        }
+
+        return array_proceso;
+    }
+
+    const searchValue = (event) => {
+        const value = event.target.name;
+        let message = RenderMsg (value)
+        setItem  (true)
+        setValor (value)
+        setMsj (message)
+    }
+
+    const RenderMsg = (valor) => {
+        let mensaje;
+
+        if (valor == "nombre") {
+            mensaje = "Coloca el nombre del local";
+            return mensaje;
+        } else if ( valor == "comuna")
+            mensaje = "Busca las farmacias en tu comuna"
+            return mensaje;
     }
 
     return(
         <>
-        <Buscador onChange={handleSearch}/>
+        <Buscador 
+        onChange={handleSearch}
+        onClick={searchValue}
+        item={item}
+        valor={valor}
+        mensaje={msj}
+        />
         <Table responsive="lg" striped bordered className='ForCellPhones'>
         <thead>
           <tr>
