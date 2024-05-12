@@ -12,7 +12,7 @@ export const Buscador = ({onChange,onClick,item,valor}) => {
           <Dropdown.Item  name = "nombre" onClick={onClick}>Nombre del local</Dropdown.Item>
           <Dropdown.Item  name = "comuna" onClick={onClick}>Comuna</Dropdown.Item>
         </DropdownButton>
-            { item ? (<Form.Control onChange={onChange} value=""/>) : (<Form.Control onChange={onChange} size="sm"/>)}
+            { item ? (<Form.Control onChange={onChange} value=""/>) : (<Form.Control placeholder = "<-- Seleccione un campo para buscar" onChange={onChange} size="sm"/>)}
       </InputGroup>
         </>
     )

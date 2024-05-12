@@ -21,6 +21,7 @@ export const MiApi = () => {
     const [alerta,setAlerta] = useState("");
     const [color,setColor] = useState("");
     const [show,setShow] = useState(false)
+    const [icon,setIcon] = useState(false)
 
     const fetchData = async () => {
         const {data} = await axios.get(URL);
@@ -57,18 +58,26 @@ export const MiApi = () => {
     },[])
 
     const handleSearch = (event) => {
+        console.log("Voy a buscar")
         const variable = event.target.value
         setOrdenado([])
         setShow(false)
         setItem  (false)
         console.log (variable ,"Funcion handleSearch")
+        console.log (valor, typeof valor,"Valor")
+        if(valor !== ""){
         if (variable !== "") {
             let DrougStrFilter = busquedaCampo(variable);
             setFiltrado(DrougStrFilter)
         } else {
             setFiltrado([])
         }        
-    }
+        } else {
+            console.log("No hay valor")
+            let mensaje = RenderMsg ();
+            setMsj(mensaje)
+        }
+}
 
     const busquedaCampo = (variable) => {
         let array_proceso;
@@ -81,10 +90,8 @@ export const MiApi = () => {
                 farmacia.comuna.toLowerCase().includes(variable.toLowerCase())
             )
         }
-        console.log(array_proceso)
         if (array_proceso.length == 0) {
-            console.log ("no hay coincidencias")
-            gestionAlerta("No hay coincidencias","danger")
+            gestionAlerta("No hay coincidencias","danger",false)
         } else {
             setShow(false);
         }
@@ -103,15 +110,19 @@ export const MiApi = () => {
 
     const RenderMsg = (valor) => {
         let mensaje;
-
         if (valor == "nombre") {
             mensaje = "Coloca el nombre del local";
-            gestionAlerta("Coloca el nombre del local","warning")
+            gestionAlerta("Coloca el nombre del local","warning",true)
             return mensaje;
-        } else if ( valor == "comuna")
+        } else if ( valor == "comuna") {
             mensaje = "Busca las farmacias en tu comuna"
-            gestionAlerta("Busca las farmacias en tu comuna","warning")
+            gestionAlerta("Busca las farmacias en tu comuna","warning",true)
             return mensaje;
+        } else {
+            mensaje = "Recuerde seleccionar una opcion de busqueda"
+            gestionAlerta("Recuerde seleccionar una opcion de busqueda","warning",true)
+            return mensaje;
+        }
     }
 
     const ordenarResultados = (event) => {
@@ -129,10 +140,8 @@ export const MiApi = () => {
                 variable_local = ordenador (farmacias)
             }
         } else {
-            console.log ("No voy a filtrar")
             }
             setOrdenado(variable_local)
-            console.log(ordenado, "variable ordenada")
     }
 
     const ordenador = (flujo) => {
@@ -142,11 +151,12 @@ export const MiApi = () => {
             
     }
 
-    const gestionAlerta = (texto,clr) => {
+    const gestionAlerta = (texto,clr,boolean) => {
 
         setAlerta(texto);
         setColor(clr);
         setShow(true);
+        setIcon(boolean);
 
     }
 
@@ -175,10 +185,11 @@ export const MiApi = () => {
                 variante={color}
                 texto={alerta}
                 mostrar={show}
+                icono={icon}
                 />
             </Col>
         </Row>
-        <Table className='table-hover table-bordered'>
+        <Table className='table-hover table-bordered text-center'>
         <thead>
           <tr className='table-primary'>
             <th className='col-1'>Local</th>
