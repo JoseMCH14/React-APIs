@@ -6,7 +6,7 @@ export const Ordernar = ({onClick}) => {
         <>
             <Form.Select aria-label="Default select example" onChange={onClick}>
                 <option value="0">Ordenar por</option>
-                <option value="1" >A to Z</option>
+                <option value="1" >Local (A to Z)</option>
             </Form.Select>
         </>
     )

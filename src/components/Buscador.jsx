@@ -3,7 +3,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-export const Buscador = ({onChange,onClick,item,mensaje,valor}) => {
+export const Buscador = ({onChange,onClick,item,mensaje,valor,escribir}) => {
         
     return (
         <>
@@ -13,7 +13,7 @@ export const Buscador = ({onChange,onClick,item,mensaje,valor}) => {
           <Dropdown.Item name = "nombre" onClick={onClick}>Nombre del local</Dropdown.Item>
           <Dropdown.Item name = "comuna" onClick={onClick}>Comuna</Dropdown.Item>
         </DropdownButton>
-            { item ? (<Form.Control placeholder={mensaje} onChange={onChange}/>) : (<Form.Control placeholder="<-- Seleccione una opcion de busqueda" onChange={onChange}/>)}
+            { item ? (<Form.Control onChange={onChange} value=""/>) : (<Form.Control onChange={onChange}/>)}
       </InputGroup>
         </>
     )

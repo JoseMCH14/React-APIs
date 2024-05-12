@@ -56,6 +56,8 @@ export const MiApi = () => {
     const handleSearch = (event) => {
         const variable = event.target.value
         setOrdenado([])
+        setShow(false)
+        setItem  (false)
         console.log (variable ,"Funcion handleSearch")
         if (variable !== "") {
             let DrougStrFilter = busquedaCampo(variable);
@@ -93,6 +95,7 @@ export const MiApi = () => {
         setItem  (true)
         setValor (value)
         setMsj (message)
+        
     }
 
     const RenderMsg = (valor) => {
@@ -100,9 +103,11 @@ export const MiApi = () => {
 
         if (valor == "nombre") {
             mensaje = "Coloca el nombre del local";
+            gestionAlerta("Coloca el nombre del local","warning")
             return mensaje;
         } else if ( valor == "comuna")
             mensaje = "Busca las farmacias en tu comuna"
+            gestionAlerta("Busca las farmacias en tu comuna","warning")
             return mensaje;
     }
 
