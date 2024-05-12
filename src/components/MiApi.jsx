@@ -10,8 +10,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import { width } from '@fortawesome/free-brands-svg-icons/fa42Group';
-
 
 export const MiApi = () => {
 
@@ -62,13 +60,11 @@ export const MiApi = () => {
     },[])
 
     const handleSearch = (event) => {
-        console.log("Voy a buscar")
         const variable = event.target.value
         setOrdenado([])
         setShow(false)
         setItem  (false)
         console.log (variable ,"Funcion handleSearch")
-        console.log (valor, typeof valor,"Valor")
         if(valor !== ""){
         if (variable !== "") {
             let DrougStrFilter = busquedaCampo(variable);
@@ -77,7 +73,6 @@ export const MiApi = () => {
             setFiltrado([])
         }        
         } else {
-            console.log("No hay valor")
             let mensaje = RenderMsg ();
             setMsj(mensaje)
         }
