@@ -18,8 +18,8 @@ function App() {
     <Container className='d-flex flex-column justify-content-center align-items-center vw-100'>
         <header className=' d-flex justify-content-center mb-3 bg-dark-subtle vw-100'>
           <Container>
-          <Navbar >
-              <Navbar.Brand className='d-flex justify-content-center me-5'>
+          <Navbar className="ms-3">
+              <Navbar.Brand className='d-flex justify-content-center'>
                 <img
                   alt=""
                   src={logo}
