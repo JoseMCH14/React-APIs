@@ -17,6 +17,7 @@ function App() {
     <>
     <Container className='d-flex flex-column justify-content-center align-items-center vw-100'>
         <header className=' d-flex justify-content-center mb-3 bg-dark-subtle vw-100'>
+          <Container>
           <Navbar >
               <Navbar.Brand className='d-flex justify-content-center me-5'>
                 <img
@@ -27,16 +28,19 @@ function App() {
                   className="d-inline-block align-center"
                 />
               </Navbar.Brand>
-              <Nav className='ms-5 pt-5'>
-                <Nav.Link className='ms-5 link-light' href="#">Incio</Nav.Link>
+              <Nav className='pt-5'>
+                <Nav.Link className='link-light' href="#">Incio</Nav.Link>
                 <Nav.Link className='link-light' href="#">Sub-secretarias</Nav.Link>
                 <Nav.Link className='link-light' href="#">Gobierno</Nav.Link>
                 <Nav.Link className='link-light' href="#">Nosotros</Nav.Link>
               </Nav>
-          </Navbar>  
+          </Navbar> 
+          </Container> 
         </header> 
         <main>
-          <MiApi />
+          <Container>
+            <MiApi />
+          </Container>
         </main>
         <footer className='bg-dark-subtle vw-100'>
         <Container>

@@ -4,10 +4,14 @@ import { useEffect } from 'react';
 import { Buscador } from './Buscador';
 import { Ordernar } from './Ordenar';
 import { Advertecia } from './Advertencia';
+import linea from '../assets/img/linea.png'
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import { width } from '@fortawesome/free-brands-svg-icons/fa42Group';
+
 
 export const MiApi = () => {
 
@@ -165,7 +169,12 @@ export const MiApi = () => {
         <Container>
         <Row className='mb-3'>
         <Row>
-            <h2>Farmacias de turno</h2>
+            <h2 className='text-center'>Farmacias de turno</h2>
+        </Row>
+        <Row>
+            <Col>
+                <Image className="linea ms-4 mb-2" src={linea}/>
+            </Col>
         </Row>
             <Col>
                 <Buscador 
