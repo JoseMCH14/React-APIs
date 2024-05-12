@@ -50,9 +50,7 @@ export const MiApi = () => {
         } else {
             console.log("data no encontrada")
         }
-
         setFarmancias(drugstoreclean)
-        
     }
 
     useEffect(()=>{
@@ -126,21 +124,13 @@ export const MiApi = () => {
 
     const ordenarResultados = (event) => {
        
-        const Ordenar = event.target.value
-        let variable_local = [];
-
-        
-        if (Ordenar !== "0") {
-            if (filtrado.length) {
-
-                variable_local = ordenador (filtrado);
-            } else {
-
-                variable_local = ordenador (farmacias)
-            }
+        let variable_local = []; 
+        if (filtrado.length) {
+            variable_local = ordenador (filtrado);
         } else {
-            }
-            setOrdenado(variable_local)
+            variable_local = ordenador (farmacias)
+        } 
+        setOrdenado(variable_local)
     }
 
     const ordenador = (flujo) => {
