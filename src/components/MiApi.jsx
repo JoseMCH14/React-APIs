@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Buscador } from './Buscador';
 import { Ordernar } from './Ordenar';
+import { Advertecia } from './Advertencia';
 import Table from 'react-bootstrap/Table';
 
 export const MiApi = () => {
@@ -14,6 +15,9 @@ export const MiApi = () => {
     const [valor,setValor] = useState ("");
     const [item,setItem] = useState (false);
     const [msj,setMsj] = useState ("");
+    const [alerta,setAlerta] = useState("");
+    const [color,setColor] = useState("");
+    const [show,setShow] = useState(false)
 
     const fetchData = async () => {
         const {data} = await axios.get(URL);
@@ -72,7 +76,14 @@ export const MiApi = () => {
                 farmacia.comuna.toLowerCase().includes(variable.toLowerCase())
             )
         }
-
+        console.log(array_proceso)
+        if (array_proceso.length == 0) {
+            console.log ("no hay coincidencias")
+            gestionAlerta("No hay coincidencias","danger")
+        } else {
+            setShow(false);
+        }
+        
         return array_proceso;
     }
 
@@ -123,6 +134,14 @@ export const MiApi = () => {
             
     }
 
+    const gestionAlerta = (texto,clr) => {
+
+        setAlerta(texto);
+        setColor(clr);
+        setShow(true);
+
+    }
+
     return(
         <>
         <Buscador 
@@ -134,6 +153,11 @@ export const MiApi = () => {
         />
         <Ordernar
         onClick={ordenarResultados}
+        />
+        <Advertecia 
+        variante={color}
+        texto={alerta}
+        mostrar={show}
         />
         <Table responsive="lg" striped bordered className='ForCellPhones'>
         <thead>
