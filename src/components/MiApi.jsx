@@ -5,6 +5,9 @@ import { Buscador } from './Buscador';
 import { Ordernar } from './Ordenar';
 import { Advertecia } from './Advertencia';
 import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export const MiApi = () => {
 
@@ -149,67 +152,79 @@ export const MiApi = () => {
 
     return(
         <>
-        <Buscador 
-            onChange={handleSearch}
-            onClick={searchValue}
-            item={item}
-            valor={valor}
-            mensaje={msj}
-        />
-        <Ordernar
-        onClick={ordenarResultados}
-        />
-        <Advertecia 
-        variante={color}
-        texto={alerta}
-        mostrar={show}
-        />
-        <Table responsive="lg" striped bordered className='ForCellPhones'>
+        <Container>
+        <Row className='mb-3'>
+            <Col>
+                <Buscador 
+                    onChange={handleSearch}
+                    onClick={searchValue}
+                    item={item}
+                    valor={valor}
+                    mensaje={msj}
+                />
+            </Col>
+            <Col xs={2}>
+                <Ordernar
+                onClick={ordenarResultados}
+                />
+            </Col>
+        </Row>
+        <Row className='justify-content-center'>
+            <Col xs={3}>
+                <Advertecia 
+                variante={color}
+                texto={alerta}
+                mostrar={show}
+                />
+            </Col>
+        </Row>
+        <Table className='table-hover table-bordered'>
         <thead>
-          <tr>
-            <th>Local</th>
-            <th>Comuna</th>
-            <th>Direccion</th>
-            <th>Horario</th>
-            <th>Telefono</th>
+          <tr className='table-primary'>
+            <th className='col-1'>Local</th>
+            <th >Comuna </th>
+            <th >Direccion</th>
+            <th className='col-2'>Horario</th>
+            <th className='col-1'>Telefono</th>
           </tr>
         </thead>
         <tbody>
           {
             ordenado?.length ? (ordenado.map( (orderdata) => (
-                <tr key={orderdata.id}>
-                <td>{orderdata.nombre}</td>
-                <td>{orderdata.comuna}</td>
-                <td>{orderdata.direccion}</td>
-                <td>{orderdata.apertura} - {orderdata.cierre}</td>
-                <td>{orderdata.telefono}</td>
+                <tr className='table-light' key={orderdata.id} >
+                <td className='align-middle text-md-center'>{orderdata.nombre}</td>
+                <td className='align-middle text-md-center'>{orderdata.comuna}</td>
+                <td className='align-middle text-md-center'>{orderdata.direccion}</td>
+                <td className='align-middle text-md-center'>{orderdata.apertura} - {orderdata.cierre}</td>
+                <td className='align-middle text-md-center'>{orderdata.telefono}</td>
             </tr>
             
             ))) : (filtrado?.length ? (filtrado.map((filterdata) => (
-                <tr key={filterdata.id}>
-                <td>{filterdata.nombre}</td>
-                <td>{filterdata.comuna}</td>
-                <td>{filterdata.direccion}</td>
-                <td>{filterdata.apertura} - {filterdata.cierre}</td>
-                <td>{filterdata.telefono}</td>
+                <tr className='table-light' key={filterdata.id}>
+                <td className='align-middle text-md-center'>{filterdata.nombre}</td>
+                <td className='align-middle text-md-center'>{filterdata.comuna}</td>
+                <td className='align-middle text-md-center'>{filterdata.direccion}</td>
+                <td className='align-middle text-md-center'>{filterdata.apertura} - {filterdata.cierre}</td>
+                <td className='align-middle text-md-center'>{filterdata.telefono}</td>
             </tr>
             ))): (farmacias?.length ? ( farmacias.map( (farmacia) => (
-                <tr key={farmacia.id}>
-                    <td>{farmacia.nombre}</td>
-                    <td>{farmacia.comuna}</td>
-                    <td>{farmacia.direccion}</td>
-                    <td>{farmacia.apertura} - {farmacia.cierre}</td>
-                    <td>{farmacia.telefono}</td>
+                <tr className='table-light' key={farmacia.id}>
+                    <td className='align-middle text-md-center'>{farmacia.nombre}</td>
+                    <td className='align-middle text-md-center'>{farmacia.comuna}</td>
+                    <td className='align-middle text-md-center'>{farmacia.direccion}</td>
+                    <td className='align-middle text-md-center'>{farmacia.apertura} - {farmacia.cierre}</td>
+                    <td className='align-middle text-md-center'>{farmacia.telefono}</td>
                 </tr>
                     ))) :
               <tr>
-                <td colSpan={7}>
+                <td colSpan={5} >
                     <h1>Cargando...</h1>
                 </td>
               </tr>
           ))}
         </tbody>
       </Table>
+      </Container>
         </>
     )
 }

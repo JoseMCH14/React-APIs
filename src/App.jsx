@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <h1>Holas</h1>
+      <h1>Farmacias de chile</h1>
       <MiApi />
     </>
   )
