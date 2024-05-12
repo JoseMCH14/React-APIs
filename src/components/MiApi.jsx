@@ -9,8 +9,8 @@ export const MiApi = () => {
 
     const URL = 'https://midas.minsal.cl/farmacia_v2/WS/getLocales.php';
     const [farmacias,setFarmancias] = useState ([]);
-    const [search,setSearch] = useState (""); 
     const [filtrado, setFiltrado] = useState ([]);
+    const [ordenado,setOrdenado] = useState ([]);
     const [valor,setValor] = useState ("");
     const [item,setItem] = useState (false);
     const [msj,setMsj] = useState ("");
@@ -25,8 +25,8 @@ export const MiApi = () => {
             drugstoreclean = DrugStores.map((DrugStore) => {
                 const newDataDrugstore = {
                     id: DrugStore.local_id,
-                    nombre: DrugStore.local_nombre,
-                    comuna: DrugStore.comuna_nombre,
+                    nombre: DrugStore.local_nombre.trim(),
+                    comuna: DrugStore.comuna_nombre.trim(),
                     direccion: DrugStore.local_direccion,
                     apertura: DrugStore.funcionamiento_hora_apertura,
                     cierre: DrugStore.funcionamiento_hora_cierre,
@@ -49,27 +49,27 @@ export const MiApi = () => {
         fetchData();
     },[])
 
-    const handleSearch = (event,searchfield) => {
-        setSearch(event.target.value)
-        console.log (search ,"Funcion handleSearch")
-        if (search !== "") {
-            let DrougStrFilter = busquedaCampo();
+    const handleSearch = (event) => {
+        const variable = event.target.value
+        setOrdenado([])
+        console.log (variable ,"Funcion handleSearch")
+        if (variable !== "") {
+            let DrougStrFilter = busquedaCampo(variable);
             setFiltrado(DrougStrFilter)
         } else {
             setFiltrado([])
-        }
-        
+        }        
     }
 
-    const busquedaCampo = () => {
+    const busquedaCampo = (variable) => {
         let array_proceso;
         if (valor == "nombre" ) {
             array_proceso = farmacias.filter ((farmacia) =>
-                farmacia.nombre.toLowerCase().includes(search.toLowerCase())
+                farmacia.nombre.toLowerCase().includes(variable.toLowerCase())
             )
         } else if ( valor == "comuna") {
             array_proceso = farmacias.filter ((farmacia) =>
-                farmacia.comuna.toLowerCase().includes(search.toLowerCase())
+                farmacia.comuna.toLowerCase().includes(variable.toLowerCase())
             )
         }
 
@@ -95,6 +95,34 @@ export const MiApi = () => {
             return mensaje;
     }
 
+    const ordenarResultados = (event) => {
+       
+        const Ordenar = event.target.value
+        let variable_local = [];
+
+        
+        if (Ordenar !== "0") {
+            if (filtrado.length) {
+
+                variable_local = ordenador (filtrado);
+            } else {
+
+                variable_local = ordenador (farmacias)
+            }
+        } else {
+            console.log ("No voy a filtrar")
+            }
+            setOrdenado(variable_local)
+            console.log(ordenado, "variable ordenada")
+    }
+
+    const ordenador = (flujo) => {
+        
+        let array_prueba = flujo.sort((x,y) => x.nombre.localeCompare(y.nombre));
+        return array_prueba;
+            
+    }
+
     return(
         <>
         <Buscador 
@@ -104,7 +132,9 @@ export const MiApi = () => {
             valor={valor}
             mensaje={msj}
         />
-        <Ordernar />
+        <Ordernar
+        onClick={ordenarResultados}
+        />
         <Table responsive="lg" striped bordered className='ForCellPhones'>
         <thead>
           <tr>
@@ -117,7 +147,16 @@ export const MiApi = () => {
         </thead>
         <tbody>
           {
-            filtrado?.length ? (filtrado.map((filterdata,index) => (
+            ordenado?.length ? (ordenado.map( (orderdata) => (
+                <tr key={orderdata.id}>
+                <td>{orderdata.nombre}</td>
+                <td>{orderdata.comuna}</td>
+                <td>{orderdata.direccion}</td>
+                <td>{orderdata.apertura} - {orderdata.cierre}</td>
+                <td>{orderdata.telefono}</td>
+            </tr>
+            
+            ))) : (filtrado?.length ? (filtrado.map((filterdata) => (
                 <tr key={filterdata.id}>
                 <td>{filterdata.nombre}</td>
                 <td>{filterdata.comuna}</td>
@@ -125,7 +164,7 @@ export const MiApi = () => {
                 <td>{filterdata.apertura} - {filterdata.cierre}</td>
                 <td>{filterdata.telefono}</td>
             </tr>
-            ))): (farmacias?.length ? ( farmacias.map( (farmacia, index) => (
+            ))): (farmacias?.length ? ( farmacias.map( (farmacia) => (
                 <tr key={farmacia.id}>
                     <td>{farmacia.nombre}</td>
                     <td>{farmacia.comuna}</td>
@@ -139,7 +178,7 @@ export const MiApi = () => {
                     <h1>Cargando...</h1>
                 </td>
               </tr>
-          )}
+          ))}
         </tbody>
       </Table>
         </>
