@@ -164,6 +164,9 @@ export const MiApi = () => {
         <>
         <Container>
         <Row className='mb-3'>
+        <Row>
+            <h2>Farmacias de turno</h2>
+        </Row>
             <Col>
                 <Buscador 
                     onChange={handleSearch}
