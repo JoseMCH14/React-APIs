@@ -6,7 +6,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import logo from "./assets/img/Logo.png"
+import logo from "./assets/img/Logo.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faInstagram,faTiktok,faXTwitter} from  '@fortawesome/free-brands-svg-icons'
 
 function App() {
   
@@ -36,13 +38,22 @@ function App() {
         <main>
           <MiApi />
         </main>
-        <footer className='bg-primary'>
-          <Container>
-            <Row>
-              <Col >
-              </Col>
-            </Row>
-          </Container>
+        <footer className='bg-dark-subtle vw-100'>
+        <Container>
+          <Row>
+            <Col>
+                <ul className='d-flex flex-row mt-4'>
+                  <li><a href='https://www.instagram.com/ministeriosalud/?hl=es'><FontAwesomeIcon icon={faInstagram} size="xl" style={{color: "#ffffff",}} /></a></li>
+                  <li><a href='https://www.tiktok.com/@ministeriosalud'><FontAwesomeIcon className = "mx-3" icon={faTiktok} size="xl" style={{color: "#ffffff",}} /></a></li>
+                  <li><a href='https://twitter.com/ministeriosalud?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor'><FontAwesomeIcon icon={faXTwitter} size="xl" style={{color: "#ffffff",}} /></a></li>
+                </ul>
+            </Col>
+            <div className="col-lg-4 ">
+              <h3 className='text-light font-weight-bold'>Derechos de autor</h3>
+              <p className='text-light font-weight-bold' >(c) 2024 Mi Sitio Web. Todos los derechos reservados.</p>
+            </div>
+          </Row>
+        </Container>
         </footer>
     </Container>
     </>
